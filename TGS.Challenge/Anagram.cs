@@ -1,5 +1,8 @@
+using System.Text.RegularExpressions;
+
 namespace TGS.Challenge
 {
+
   /*
         Devise a function that checks if 1 word is an anagram of another, if the words are anagrams of
         one another return true, else return false
@@ -22,9 +25,43 @@ namespace TGS.Challenge
      */
     public class Anagram
     {
-      public bool AreAnagrams(string word1, string word2)
-      {
-        return false;
-      }
+        
+        public bool AreAnagrams(string word1, string word2)
+        {
+            //remove all spaces and punctuations contained in the word1 and word2 with regex
+            word1 = Regex.Replace(word1, @"[^\w]", "");
+            word2 = Regex.Replace(word2, @"[^\w]", "");
+
+            //check if the two words or phrases have equal amount of characters if not they are not the two words can't be anagrams of each other
+            if (word1.Length != word2.Length)
+                return false;
+
+            //loop through each character of word1 and find the index of the first occurance of the character in word2.
+            foreach(char w1 in word1)
+            {
+                //get index of first occurance of the w1 character in word2
+                int word2Index = word2.IndexOf(w1);
+
+                // if word2Index == -1 the character in word1 one was not found in word2 and returns false
+                if (word2Index != -1)
+                {
+                    //remove character at index in word2
+                    word2.Remove(word2Index, 1);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            // return false if there is a character left in word2
+            if(word2.Length > 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
     }
 }
