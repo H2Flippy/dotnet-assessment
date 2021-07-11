@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 
 namespace TGS.Challenge
 {
@@ -16,7 +17,14 @@ namespace TGS.Challenge
     {
         public int Count(string value)
         {
-            return -1;
+            //convert all characters of value to lowercase
+            value = value.ToLower();
+
+            //replace all the characters in value that is not "aeiou" to ""
+            string vowelString = Regex.Replace(value, @"[^aeiou+]", "");
+
+            //return the length of the remaining string as the count of all the "AEIOU" in the string
+            return vowelString.Length;
         }
     }
 }

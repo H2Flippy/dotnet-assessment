@@ -28,9 +28,13 @@ namespace TGS.Challenge
         
         public bool AreAnagrams(string word1, string word2)
         {
+            //convert all characters of word1 and word2 to lower
+            word1 = word1.ToLower();
+            word2 = word2.ToLower();
+
             //remove all spaces and punctuations contained in the word1 and word2 with regex
-            word1 = Regex.Replace(word1, @"[^\w]", "");
-            word2 = Regex.Replace(word2, @"[^\w]", "");
+            word1 = Regex.Replace(word1, @"[^a-z+]", "");
+            word2 = Regex.Replace(word2, @"[^a-z+]", "");
 
             //check if the two words or phrases have equal amount of characters if not they are not the two words can't be anagrams of each other
             if (word1.Length != word2.Length)
@@ -46,7 +50,7 @@ namespace TGS.Challenge
                 if (word2Index != -1)
                 {
                     //remove character at index in word2
-                    word2.Remove(word2Index, 1);
+                    word2 = word2.Remove(word2Index, 1);
                 }
                 else
                 {
